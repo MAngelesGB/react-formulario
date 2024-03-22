@@ -1,7 +1,6 @@
 import { useState } from 'react'
-import './App.css'
-import {PlatilloForm} from './components/PlatilloForm'
-import {PlatilloList}  from './components/PlatilloList'
+import { PlatilloForm } from './components/PlatilloForm'
+import { PlatilloList } from './components/PlatilloList'
 function App() {
   const [dishes, setDishes] = useState([]) //Array de platillos
   const [isFormVisible, setIsFormVisible] = useState(false);
@@ -16,22 +15,22 @@ function App() {
   })
 
 
-  const handleInputChange = (e) =>{
-    const {name, value, type, checked} = e.target;
-    if (type === "checkbox"){
-      if(checked){
+  const handleInputChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    if (type === "checkbox") {
+      if (checked) {
         setForm({
           ...form,
           acompaniantes: [...form.acompaniantes, value]
-        }); 
-      }else{
+        });
+      } else {
         setForm({
           ...form,
           acompaniantes: form.acompaniantes.filter(a => a !== value)
         });
       }
     }
-    else{
+    else {
       setForm({
         ...form,
         [name]: value
@@ -40,31 +39,31 @@ function App() {
   }
 
   const handleSubmit = (e) => {
-    e.preventDefault(); 
+    e.preventDefault();
 
     if (form.id) {
       // Modo de edición: actualiza el platillo existente
       const updatedDishes = dishes.map(dish => {
         if (dish.id === form.id) {
-          return { ...form }; // o simplemente form si ya contiene todos los datos actualizados
+          return { ...form };
         } else {
           return dish;
         }
       });
-  
       setDishes(updatedDishes);
     } else {
-      const newId = dishes.reduce((maxId, dish) => Math.max(dish.id, maxId), 0) + 1;  
+      const newId = dishes.reduce((maxId, dish) => Math.max(dish.id, maxId), 0) + 1;
       const newDish = { ...form, id: newId };
-    
+
       setDishes([...dishes, newDish]);
     }
-  
+    setIsFormVisible(false);
     resetForm();
   }
 
   const handleUpdate = (index) => {
-    setForm(dishes[index]); 
+    setIsFormVisible(true);
+    setForm(dishes[index]);
   }
 
   const handleDelete = (index) => {
@@ -73,7 +72,7 @@ function App() {
     setDishes(newDishes)
   }
 
-  const resetForm = () =>{
+  const resetForm = () => {
     setForm({
       id: 0,
       imagen: '',
@@ -89,30 +88,70 @@ function App() {
     setIsFormVisible(false); // Oculta el formulario
   };
 
-  const [filteredDishes, setFilteredDishes] = useState(dishes);
+  const [filter, setFilter] = useState('');
 
-  const filterDishes = (filter) => {
-    const lowerCaseFilter = filter.toLowerCase();
-    const newFilteredDishes = dishes.filter(dish => {
+  const handleFilterChange = (e) => {
+    const newFilter = e.target.value.toLowerCase();
+    setFilter(newFilter);
+  };
+
+  const filterDishes = (dishes, filterText) => {
+    if (!filterText) {
+      return dishes; // Si no hay filtro, mostrar todos los platillos
+    }
+
+    const lowerCaseFilter = filterText.toLowerCase();
+    return dishes.filter(dish => {
       return Object.values(dish).some(value =>
         value.toString().toLowerCase().includes(lowerCaseFilter)
       );
     });
-    setFilteredDishes(newFilteredDishes);
-  }
+  };
 
   return (
     <>
       {isFormVisible && (
-      <PlatilloForm form = {form} handleInputChange={handleInputChange} handleSubmit={handleSubmit}
-        cleanForm={resetForm} cancelForm={cancelForm} 
-      />
-    )}
-    <input type="text" placeholder="Buscar platillo" onChange={(e) => filterDishes(e.target.value)}/>
-    <button onClick={() => setIsFormVisible(true)} style={{display: isFormVisible? "none":"block"}}>Agregar</button >
-    <PlatilloList dishes = {filteredDishes} handleDelete={handleDelete} handleUpdate={handleUpdate}/>
+        <div className="my-4">
+          <PlatilloForm
+            form={form}
+            handleInputChange={handleInputChange}
+            handleSubmit={handleSubmit}
+            cleanForm={resetForm}
+            cancelForm={cancelForm}
+          />
+        </div>
+      )}
+
+      <div className='flex flex-row justify-evenly items-center'>
+        <div className="my-4">
+          <input
+            type="text"
+            placeholder="Buscar platillo"
+            value={filter}
+            onChange={handleFilterChange}
+            className="border border-gray-300 rounded px-4 py-2"
+          />
+        </div>
+
+        <a
+          onClick={() => setIsFormVisible(true)}
+          className={`my-4 ${isFormVisible ? 'hidden' : 'block'} py-2 px-4 rounded hover:scale-105 cursor-pointer`}
+        >
+          <svg width="36" height="36" viewBox="0 0 24 24"><path fill="#65a30d" d="M11 17h2v-4h4v-2h-4V7h-2v4H7v2h4zm1 5q-2.075 0-3.9-.788t-3.175-2.137q-1.35-1.35-2.137-3.175T2 12q0-2.075.788-3.9t2.137-3.175q1.35-1.35 3.175-2.137T12 2q2.075 0 3.9.788t3.175 2.137q1.35 1.35 2.138 3.175T22 12q0 2.075-.788 3.9t-2.137 3.175q-1.35 1.35-3.175 2.138T12 22" /></svg>
+        </a>
+      </div>
+
+
+      <div className="my-4">
+        <PlatilloList
+          dishes={filterDishes(dishes, filter)}
+          handleDelete={handleDelete}
+          handleUpdate={handleUpdate}
+        />
+      </div>
     </>
-  )
+
+  );
 }
 
 export default App
