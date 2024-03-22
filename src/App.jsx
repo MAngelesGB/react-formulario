@@ -13,6 +13,8 @@ function App() {
     picor: 'Sin picante',
     personas: '1'
   })
+  const [filter, setFilter] = useState('');
+
 
 
   const handleInputChange = (e) => {
@@ -61,16 +63,20 @@ function App() {
     resetForm();
   }
 
-  const handleUpdate = (index) => {
-    setIsFormVisible(true);
-    setForm(dishes[index]);
-  }
 
-  const handleDelete = (index) => {
-    const newDishes = [...dishes]
-    newDishes.splice(index, 1)
-    setDishes(newDishes)
-  }
+  const handleUpdate = (filteredIndex) => {
+    const originalIndex = dishes.findIndex(dish => dish === filteredDishes[filteredIndex]);
+    setIsFormVisible(true);
+    setForm(dishes[originalIndex]);
+  };
+
+  const handleDelete = (filteredIndex) => {
+    const originalIndex = dishes.findIndex(dish => dish === filteredDishes[filteredIndex]);
+    const newDishes = [...dishes];
+    newDishes.splice(originalIndex, 1);
+    setDishes(newDishes);
+  };
+
 
   const resetForm = () => {
     setForm({
@@ -85,10 +91,8 @@ function App() {
   }
   const cancelForm = () => {
     resetForm();
-    setIsFormVisible(false); // Oculta el formulario
+    setIsFormVisible(false);
   };
-
-  const [filter, setFilter] = useState('');
 
   const handleFilterChange = (e) => {
     const newFilter = e.target.value.toLowerCase();
@@ -97,7 +101,7 @@ function App() {
 
   const filterDishes = (dishes, filterText) => {
     if (!filterText) {
-      return dishes; // Si no hay filtro, mostrar todos los platillos
+      return dishes;
     }
 
     const lowerCaseFilter = filterText.toLowerCase();
@@ -107,6 +111,8 @@ function App() {
       );
     });
   };
+
+  const filteredDishes = filterDishes(dishes, filter);
 
   return (
     <>
@@ -144,7 +150,7 @@ function App() {
 
       <div className="my-4">
         <PlatilloList
-          dishes={filterDishes(dishes, filter)}
+          dishes={filteredDishes}
           handleDelete={handleDelete}
           handleUpdate={handleUpdate}
         />
