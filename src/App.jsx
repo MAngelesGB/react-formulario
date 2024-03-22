@@ -149,6 +149,13 @@ function App() {
 
 
       <div className="my-4">
+        {
+          filteredDishes.length === 0 && (
+            <div className="text-center text-gray-500">
+              No hay platillos
+            </div>
+          )
+        }
         <PlatilloList
           dishes={filteredDishes}
           handleDelete={handleDelete}
