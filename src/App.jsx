@@ -89,6 +89,18 @@ function App() {
     setIsFormVisible(false); // Oculta el formulario
   };
 
+  const [filteredDishes, setFilteredDishes] = useState(dishes);
+
+  const filterDishes = (filter) => {
+    const lowerCaseFilter = filter.toLowerCase();
+    const newFilteredDishes = dishes.filter(dish => {
+      return Object.values(dish).some(value =>
+        value.toString().toLowerCase().includes(lowerCaseFilter)
+      );
+    });
+    setFilteredDishes(newFilteredDishes);
+  }
+
   return (
     <>
       {isFormVisible && (
@@ -96,8 +108,9 @@ function App() {
         cleanForm={resetForm} cancelForm={cancelForm} 
       />
     )}
+    <input type="text" placeholder="Buscar platillo" onChange={(e) => filterDishes(e.target.value)}/>
     <button onClick={() => setIsFormVisible(true)} style={{display: isFormVisible? "none":"block"}}>Agregar</button >
-    <PlatilloList dishes = {dishes} handleDelete={handleDelete} handleUpdate={handleUpdate}/>
+    <PlatilloList dishes = {filteredDishes} handleDelete={handleDelete} handleUpdate={handleUpdate}/>
     </>
   )
 }
