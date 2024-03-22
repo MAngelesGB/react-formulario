@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { PlatilloForm } from './components/PlatilloForm'
 import { PlatilloList } from './components/PlatilloList'
+
 function App() {
   const [dishes, setDishes] = useState([]) //Array de platillos
   const [isFormVisible, setIsFormVisible] = useState(false);
@@ -14,8 +15,6 @@ function App() {
     personas: '1'
   })
   const [filter, setFilter] = useState('');
-
-
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -63,7 +62,6 @@ function App() {
     resetForm();
   }
 
-
   const handleUpdate = (filteredIndex) => {
     const originalIndex = dishes.findIndex(dish => dish === filteredDishes[filteredIndex]);
     setIsFormVisible(true);
@@ -76,7 +74,6 @@ function App() {
     newDishes.splice(originalIndex, 1);
     setDishes(newDishes);
   };
-
 
   const resetForm = () => {
     setForm({
@@ -114,6 +111,21 @@ function App() {
 
   const filteredDishes = filterDishes(dishes, filter);
 
+  const sortDishes = (sortBy) => {
+    let sortedDishes;
+    switch (sortBy) {
+      case 'nombre':
+        sortedDishes = [...dishes].sort((a, b) => a.nombre.localeCompare(b.nombre));
+        break;
+      case 'personas':
+        sortedDishes = [...dishes].sort((a, b) => a.personas - b.personas);
+        break;
+      default:
+        return;
+    }
+    setDishes(sortedDishes);
+  };
+
   return (
     <>
       <h1 className="text-3xl font-bold text-center my-4">Platillos</h1>
@@ -138,6 +150,11 @@ function App() {
             onChange={handleFilterChange}
             className="border border-gray-300 rounded px-4 py-2"
           />
+          <select onChange={(e) => sortDishes(e.target.value)}>
+            <option value="">Ordenar por...</option>
+            <option value="nombre">Nombre</option>
+            <option value="personas">Personas</option>
+        </select>
         </div>
 
         <a
