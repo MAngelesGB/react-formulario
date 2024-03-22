@@ -1,33 +1,103 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
-
+import {PlatilloForm} from './components/PlatilloForm'
+import {PlatilloList}  from './components/PlatilloList'
 function App() {
-  const [count, setCount] = useState(0)
+  const [dishes, setDishes] = useState([]) //Array de platillos
+  const [isFormVisible, setIsFormVisible] = useState(false);
+  const [form, setForm] = useState({ //Objeto para el formulario
+    id: 0,
+    imagen: '',
+    nombre: '',
+    descripcion: '',
+    acompaniantes: [],
+    picor: 'Sin picante',
+    personas: '1'
+  })
+
+
+  const handleInputChange = (e) =>{
+    const {name, value, type, checked} = e.target;
+    if (type === "checkbox"){
+      if(checked){
+        setForm({
+          ...form,
+          acompaniantes: [...form.acompaniantes, value]
+        }); 
+      }else{
+        setForm({
+          ...form,
+          acompaniantes: form.acompaniantes.filter(a => a !== value)
+        });
+      }
+    }
+    else{
+      setForm({
+        ...form,
+        [name]: value
+      });
+    }
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault(); 
+
+    if (form.id) {
+      // Modo de edición: actualiza el platillo existente
+      const updatedDishes = dishes.map(dish => {
+        if (dish.id === form.id) {
+          return { ...form }; // o simplemente form si ya contiene todos los datos actualizados
+        } else {
+          return dish;
+        }
+      });
+  
+      setDishes(updatedDishes);
+    } else {
+      const newId = dishes.reduce((maxId, dish) => Math.max(dish.id, maxId), 0) + 1;  
+      const newDish = { ...form, id: newId };
+    
+      setDishes([...dishes, newDish]);
+    }
+  
+    resetForm();
+  }
+
+  const handleUpdate = (index) => {
+    setForm(dishes[index]); 
+  }
+
+  const handleDelete = (index) => {
+    const newDishes = [...dishes]
+    newDishes.splice(index, 1)
+    setDishes(newDishes)
+  }
+
+  const resetForm = () =>{
+    setForm({
+      id: 0,
+      imagen: '',
+      nombre: '',
+      descripcion: '',
+      acompaniantes: [],
+      picor: 'Sin picante',
+      personas: '1'
+    })
+  }
+  const cancelForm = () => {
+    resetForm();
+    setIsFormVisible(false); // Oculta el formulario
+  };
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      {isFormVisible && (
+      <PlatilloForm form = {form} handleInputChange={handleInputChange} handleSubmit={handleSubmit}
+        cleanForm={resetForm} cancelForm={cancelForm} 
+      />
+    )}
+    <button onClick={() => setIsFormVisible(true)} style={{display: isFormVisible? "none":"block"}}>Agregar</button >
+    <PlatilloList dishes = {dishes} handleDelete={handleDelete} handleUpdate={handleUpdate}/>
     </>
   )
 }
