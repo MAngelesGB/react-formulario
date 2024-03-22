@@ -49,9 +49,9 @@ export function PlatilloForm({ form, handleInputChange, handleSubmit, cleanForm,
         </div>
       </div>
       <div className="col-span-2 flex justify-center items-center">
-        <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded hover:scale-105">Guardar</button>
-        <button type="button" onClick={cleanForm} className=" bg-amber-500 hover:bg-amber-600 text-white font-bold py-2 px-4 rounded ml-2 hover:scale-105">Limpiar</button>
-        <button type="button" onClick={() => cancelForm()} className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded ml-2 hover:scale-105">Cancelar</button>
+        <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg hover:scale-105">Guardar</button>
+        <button type="button" onClick={cleanForm} className=" bg-amber-500 hover:bg-amber-600 text-white font-bold py-2 px-4 rounded-lg ml-2 hover:scale-105">Limpiar</button>
+        <button type="button" onClick={() => cancelForm()} className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg ml-2 hover:scale-105">Cancelar</button>
       </div>
     </form>
   )

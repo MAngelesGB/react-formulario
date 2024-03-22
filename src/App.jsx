@@ -116,6 +116,7 @@ function App() {
 
   return (
     <>
+      <h1 className="text-3xl font-bold text-center my-4">Platillos</h1>
       {isFormVisible && (
         <div className="my-4">
           <PlatilloForm

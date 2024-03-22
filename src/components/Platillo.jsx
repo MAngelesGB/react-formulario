@@ -1,6 +1,6 @@
 export function Platillo({ dish, index, handleDelete, handleUpdate }) {
   return (
-    <div className="border border-gray-300 rounded p-4">
+    <div className="border border-gray-300 rounded-lg p-4 bg-white">
       <div className="flex justify-center items-center">
         <img src={dish.imagen} alt={dish.nombre} className="w-36 h-36 object-cover mb-4 rounded-full" />
       </div>
@@ -14,8 +14,8 @@ export function Platillo({ dish, index, handleDelete, handleUpdate }) {
         <li>Personas: {dish.personas}</li>
       </ul>
       <div>
-        <button onClick={() => handleUpdate(index)} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2">Actualizar</button>
-        <button onClick={() => handleDelete(index)} className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Eliminar</button>
+        <button onClick={() => handleUpdate(index)} className="bg-blue-500 hover:bg-blue-700 hover:scale-105 text-white font-bold py-2 px-4 rounded-lg mr-2">Actualizar</button>
+        <button onClick={() => handleDelete(index)} className="bg-red-500 hover:bg-red-700 hover:scale-105 text-white font-bold py-2 px-4 rounded-lg">Eliminar</button>
       </div>
     </div>
   );
