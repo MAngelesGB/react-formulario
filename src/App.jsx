@@ -3,6 +3,7 @@ import { PlatilloForm } from './components/PlatilloForm'
 import { PlatilloList } from './components/PlatilloList'
 
 function App() {
+  const [originalDishes, setOriginalDishes] = useState([]); // Copia de platillos original
   const [dishes, setDishes] = useState([]) //Array de platillos
   const [isFormVisible, setIsFormVisible] = useState(false);
   const [form, setForm] = useState({ //Objeto para el formulario
@@ -43,7 +44,6 @@ function App() {
     e.preventDefault();
 
     if (form.id) {
-      // Modo de edición: actualiza el platillo existente
       const updatedDishes = dishes.map(dish => {
         if (dish.id === form.id) {
           return { ...form };
@@ -52,27 +52,40 @@ function App() {
         }
       });
       setDishes(updatedDishes);
+
+      const updatedOriginalDishes = originalDishes.map(dish => {
+        if (dish.id === form.id) {
+          return { ...form };
+        } else {
+          return dish;
+        }
+      });
+      setOriginalDishes(updatedOriginalDishes);
     } else {
       const newId = dishes.reduce((maxId, dish) => Math.max(dish.id, maxId), 0) + 1;
       const newDish = { ...form, id: newId };
 
       setDishes([...dishes, newDish]);
+      setOriginalDishes([...originalDishes, newDish]);
     }
     setIsFormVisible(false);
     resetForm();
   }
 
-  const handleUpdate = (filteredIndex) => {
-    const originalIndex = dishes.findIndex(dish => dish === filteredDishes[filteredIndex]);
-    setIsFormVisible(true);
-    setForm(dishes[originalIndex]);
+  const handleUpdate = (id) => {
+    const dishToUpdate = dishes.find(dish => dish.id === id);
+    if (dishToUpdate) {
+      setIsFormVisible(true);
+      setForm(dishToUpdate);
+    }
   };
 
-  const handleDelete = (filteredIndex) => {
-    const originalIndex = dishes.findIndex(dish => dish === filteredDishes[filteredIndex]);
-    const newDishes = [...dishes];
-    newDishes.splice(originalIndex, 1);
+  const handleDelete = (id) => {
+    const newDishes = dishes.filter(dish => dish.id !== id);
+    const newOriginalDishes = originalDishes.filter(dish => dish.id !== id);
+
     setDishes(newDishes);
+    setOriginalDishes(newOriginalDishes);
   };
 
   const resetForm = () => {
@@ -121,6 +134,7 @@ function App() {
         sortedDishes = [...dishes].sort((a, b) => a.personas - b.personas);
         break;
       default:
+        setDishes([...originalDishes]);
         return;
     }
     setDishes(sortedDishes);
