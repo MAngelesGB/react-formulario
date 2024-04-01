@@ -116,9 +116,12 @@ function App() {
 
     const lowerCaseFilter = filterText.toLowerCase();
     return dishes.filter(dish => {
-      return Object.values(dish).some(value =>
-        value.toString().toLowerCase().includes(lowerCaseFilter)
-      );
+      return Object.entries(dish).some(([key, value]) => {
+        if (key === 'id') {
+          return false;
+        }
+        return value.toString().toLowerCase().includes(lowerCaseFilter);
+      });
     });
   };
 
@@ -168,7 +171,7 @@ function App() {
             <option value="">Ordenar por...</option>
             <option value="nombre">Nombre</option>
             <option value="personas">Personas</option>
-        </select>
+          </select>
         </div>
 
         <a
