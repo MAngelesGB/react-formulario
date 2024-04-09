@@ -5,12 +5,7 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {
-      fontFamily: {
-        'sriracha': ['Sriracha', 'cursive'],
-        'tauri': ['Tauri', 'sans-serif'],
-      },
-    },
+    extend: {},
   },
   plugins: [],
 }
