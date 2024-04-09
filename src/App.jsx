@@ -145,9 +145,13 @@ function App() {
 
   return (
     <>
-      <h1 className="text-3xl font-bold text-center my-4">Platillos</h1>
+    <div className="bg-[#B9CDDA]">
+      <h1 className="font-sriracha text-[#6B7D7D] text-[48px] text-center">Platillos</h1>
+    </div>
       {isFormVisible && (
+
         <div className="my-4">
+        <h2 className="text-[#6B7D7D] text-[30px] font-tauri ml-[150px] mb-4">Agregar platillo</h2>
           <PlatilloForm
             form={form}
             handleInputChange={handleInputChange}
