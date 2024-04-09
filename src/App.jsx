@@ -1,9 +1,7 @@
 import { useState } from 'react'
 import { PlatilloForm } from './components/PlatilloForm'
 import { PlatilloList } from './components/PlatilloList'
-
 function App() {
-  const [originalDishes, setOriginalDishes] = useState([]); // Copia de platillos original
   const [dishes, setDishes] = useState([]) //Array de platillos
   const [isFormVisible, setIsFormVisible] = useState(false);
   const [form, setForm] = useState({ //Objeto para el formulario
@@ -15,7 +13,7 @@ function App() {
     picor: 'Sin picante',
     personas: '1'
   })
-  const [filter, setFilter] = useState('');
+
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -44,6 +42,7 @@ function App() {
     e.preventDefault();
 
     if (form.id) {
+      // Modo de edición: actualiza el platillo existente
       const updatedDishes = dishes.map(dish => {
         if (dish.id === form.id) {
           return { ...form };
@@ -52,41 +51,26 @@ function App() {
         }
       });
       setDishes(updatedDishes);
-
-      const updatedOriginalDishes = originalDishes.map(dish => {
-        if (dish.id === form.id) {
-          return { ...form };
-        } else {
-          return dish;
-        }
-      });
-      setOriginalDishes(updatedOriginalDishes);
     } else {
       const newId = dishes.reduce((maxId, dish) => Math.max(dish.id, maxId), 0) + 1;
       const newDish = { ...form, id: newId };
 
       setDishes([...dishes, newDish]);
-      setOriginalDishes([...originalDishes, newDish]);
     }
     setIsFormVisible(false);
     resetForm();
   }
 
-  const handleUpdate = (id) => {
-    const dishToUpdate = dishes.find(dish => dish.id === id);
-    if (dishToUpdate) {
-      setIsFormVisible(true);
-      setForm(dishToUpdate);
-    }
-  };
+  const handleUpdate = (index) => {
+    setIsFormVisible(true);
+    setForm(dishes[index]);
+  }
 
-  const handleDelete = (id) => {
-    const newDishes = dishes.filter(dish => dish.id !== id);
-    const newOriginalDishes = originalDishes.filter(dish => dish.id !== id);
-
-    setDishes(newDishes);
-    setOriginalDishes(newOriginalDishes);
-  };
+  const handleDelete = (index) => {
+    const newDishes = [...dishes]
+    newDishes.splice(index, 1)
+    setDishes(newDishes)
+  }
 
   const resetForm = () => {
     setForm({
@@ -101,8 +85,10 @@ function App() {
   }
   const cancelForm = () => {
     resetForm();
-    setIsFormVisible(false);
+    setIsFormVisible(false); // Oculta el formulario
   };
+
+  const [filter, setFilter] = useState('');
 
   const handleFilterChange = (e) => {
     const newFilter = e.target.value.toLowerCase();
@@ -111,43 +97,21 @@ function App() {
 
   const filterDishes = (dishes, filterText) => {
     if (!filterText) {
-      return dishes;
+      return dishes; // Si no hay filtro, mostrar todos los platillos
     }
 
     const lowerCaseFilter = filterText.toLowerCase();
     return dishes.filter(dish => {
-      return Object.entries(dish).some(([key, value]) => {
-        if (key === 'id') {
-          return false;
-        }
-        return value.toString().toLowerCase().includes(lowerCaseFilter);
-      });
+      return Object.values(dish).some(value =>
+        value.toString().toLowerCase().includes(lowerCaseFilter)
+      );
     });
-  };
-
-  const filteredDishes = filterDishes(dishes, filter);
-
-  const sortDishes = (sortBy) => {
-    let sortedDishes;
-    switch (sortBy) {
-      case 'nombre':
-        sortedDishes = [...dishes].sort((a, b) => a.nombre.localeCompare(b.nombre));
-        break;
-      case 'personas':
-        sortedDishes = [...dishes].sort((a, b) => a.personas - b.personas);
-        break;
-      default:
-        setDishes([...originalDishes]);
-        return;
-    }
-    setDishes(sortedDishes);
   };
 
   return (
     <>
-      <h1 className="text-3xl font-bold text-center my-4">Platillos</h1>
       {isFormVisible && (
-        <div className="my-4">
+        <div className="my-4 ">
           <PlatilloForm
             form={form}
             handleInputChange={handleInputChange}
@@ -167,11 +131,6 @@ function App() {
             onChange={handleFilterChange}
             className="border border-gray-300 rounded px-4 py-2"
           />
-          <select onChange={(e) => sortDishes(e.target.value)}>
-            <option value="">Ordenar por...</option>
-            <option value="nombre">Nombre</option>
-            <option value="personas">Personas</option>
-          </select>
         </div>
 
         <a
@@ -184,15 +143,8 @@ function App() {
 
 
       <div className="my-4">
-        {
-          filteredDishes.length === 0 && (
-            <div className="text-center text-gray-500">
-              No hay platillos
-            </div>
-          )
-        }
         <PlatilloList
-          dishes={filteredDishes}
+          dishes={filterDishes(dishes, filter)}
           handleDelete={handleDelete}
           handleUpdate={handleUpdate}
         />

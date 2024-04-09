@@ -1,6 +1,6 @@
 export function PlatilloForm({ form, handleInputChange, handleSubmit, cleanForm, cancelForm }) {
   return (
-    <form onSubmit={handleSubmit} className="max-w-lg mx-auto grid grid-cols-1 gap-4 md:grid-cols-2">
+    <form onSubmit={handleSubmit} className="max-w-[1200px] mx-auto grid gap-4 md:grid-cols-3 rounded-lg px-10 py-4 bg-[#B9CDDA]">
       {/* Columna izquierda */}
       <div>
         {/*Imagen del platillo*/}
@@ -19,7 +19,7 @@ export function PlatilloForm({ form, handleInputChange, handleSubmit, cleanForm,
           <textarea id="descripcion" name="descripcion" value={form.descripcion} onChange={handleInputChange} required className="w-full border border-gray-300 rounded px-4 py-2"></textarea>
         </div>
       </div>
-      {/* Columna derecha */}
+      {/* Columna media */}
       <div>
         {/*Acompañantes*/}
         <div className="mb-4">
@@ -48,11 +48,12 @@ export function PlatilloForm({ form, handleInputChange, handleSubmit, cleanForm,
           </select>
         </div>
       </div>
-      <div className="col-span-2 flex justify-center items-center">
-        <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg hover:scale-105">Guardar</button>
-        <button type="button" onClick={cleanForm} className=" bg-amber-500 hover:bg-amber-600 text-white font-bold py-2 px-4 rounded-lg ml-2 hover:scale-105">Limpiar</button>
-        <button type="button" onClick={() => cancelForm()} className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg ml-2 hover:scale-105">Cancelar</button>
-      </div>
+      {/* Columna derecha */}
+        <div className="grid gap-4 mb-4 items-center justify-center">
+          <button type="submit" className="bg-[#8EAF9D] hover:bg-[#6B7D7D] text-white font-bold py-2 px-10 ml-2 rounded hover:scale-105">Guardar</button>
+          <button type="button" onClick={cleanForm} className=" bg-[#8EAF9D] hover:bg-[#6B7D7D] text-white font-bold py-2 px-10 rounded ml-2 hover:scale-105">Limpiar</button>
+          <button type="button" onClick={() => cancelForm()} className="bg-[#8EAF9D] hover:bg-[#6B7D7D] text-white font-bold py-2 px-10 rounded ml-2 hover:scale-105">Cancelar</button>
+        </div>
     </form>
   )
 }
