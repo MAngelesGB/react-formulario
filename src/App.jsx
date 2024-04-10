@@ -169,7 +169,7 @@ function App() {
             placeholder="Search..."
             value={filter}
             onChange={handleFilterChange}
-            className="border border-gray-300 rounded px-4 py-2 w-[1090px] rounded-[15px] "
+            className="border border-gray-300 px-4 py-2 w-[1090px] rounded-[15px] "
           />
           <select  className=" bg-[#8EAF9D] text-[#FFFFFF] text-center ml-3 rounded-[10px] hover:bg-[#FFFFFF] hover:text-[#6B7D7D] w-[100px] h-[40px]"onChange={(e) => sortBooks(e.target.value)}>
             <option value=""> Order by </option>
@@ -180,7 +180,7 @@ function App() {
         <div className="flex flex-col items-end px-[50px]">
           <a
             onClick={() => setIsFormVisible(true)}
-            className={` ${isFormVisible ? 'hidden' : 'block'} rounded= full hover:scale-105 cursor-pointer w-[60px]`}
+            className={` ${isFormVisible ? 'hidden' : 'block'} rounded-full hover:scale-105 cursor-pointer w-[60px]`}
           >
             <svg width="60" height="60" viewBox="0 0 24 24"><path fill="#8EAF9D" d="M11 17h2v-4h4v-2h-4V7h-2v4H7v2h4zm1 5q-2.075 0-3.9-.788t-3.175-2.137q-1.35-1.35-2.137-3.175T2 12q0-2.075.788-3.9t2.137-3.175q1.35-1.35 3.175-2.137T12 2q2.075 0 3.9.788t3.175 2.137q1.35 1.35 2.138 3.175T22 12q0 2.075-.788 3.9t-2.137 3.175q-1.35 1.35-3.175 2.138T12 22" /></svg>
           </a>

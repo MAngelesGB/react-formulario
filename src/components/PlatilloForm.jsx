@@ -37,15 +37,15 @@ export function PlatilloForm({ form, handleInputChange, handleSubmit, cleanForm,
           <label className="block font-sriracha text-[#6B7D7D] text-[18px]">Score</label>
           <div className="flex gap-2 font-tauri mt-3 text-center">
             <input type="radio" name="score" value="1" checked={form.score=== "1"} onChange={handleInputChange} className="relative h-4 w-4 shrink-0 appearance-none rounded-full border checked:bg-[#70D3FD] hover:ring hover:ring-gray-300 focus:outline-none bg-slate-50 my-1" /> 1 point
-            <input type="radio" name="score" value="2" checked={form.score=== "2"} onChange={handleInputChange} className="relative h-4 w-4 shrink-0 appearance-none rounded-full border checked:bg-[#70D3FD] hover:ring hover:ring-gray-300 focus:outline-none bg-slate-50 my-1" /> 2 ponits
-            <input type="radio" name="score" value="3" checked={form.score=== "3"} onChange={handleInputChange} className="relative h-4 w-4 shrink-0 appearance-none rounded-full border checked:bg-[#70D3FD] hover:ring hover:ring-gray-300 focus:outline-none bg-slate-50 my-1" /> 3 ponits
-            <input type="radio" name="score" value="4" checked={form.score=== "4"} onChange={handleInputChange} className="relative h-4 w-4 shrink-0 appearance-none rounded-full border checked:bg-[#70D3FD] hover:ring hover:ring-gray-300 focus:outline-none bg-slate-50 my-1" /> 4 ponits
-            <input type="radio" name="score" value="5" checked={form.score=== "5"} onChange={handleInputChange} className="relative h-4 w-4 shrink-0 appearance-none rounded-full border checked:bg-[#70D3FD] hover:ring hover:ring-gray-300 focus:outline-none bg-slate-50 my-1" /> 5 ponits
+            <input type="radio" name="score" value="2" checked={form.score=== "2"} onChange={handleInputChange} className="relative h-4 w-4 shrink-0 appearance-none rounded-full border checked:bg-[#70D3FD] hover:ring hover:ring-gray-300 focus:outline-none bg-slate-50 my-1" /> 2 points
+            <input type="radio" name="score" value="3" checked={form.score=== "3"} onChange={handleInputChange} className="relative h-4 w-4 shrink-0 appearance-none rounded-full border checked:bg-[#70D3FD] hover:ring hover:ring-gray-300 focus:outline-none bg-slate-50 my-1" /> 3 points
+            <input type="radio" name="score" value="4" checked={form.score=== "4"} onChange={handleInputChange} className="relative h-4 w-4 shrink-0 appearance-none rounded-full border checked:bg-[#70D3FD] hover:ring hover:ring-gray-300 focus:outline-none bg-slate-50 my-1" /> 4 points
+            <input type="radio" name="score" value="5" checked={form.score=== "5"} onChange={handleInputChange} className="relative h-4 w-4 shrink-0 appearance-none rounded-full border checked:bg-[#70D3FD] hover:ring hover:ring-gray-300 focus:outline-none bg-slate-50 my-1" /> 5 points
           </div>
         </div>
         {/*Status*/}
         <div className="mb-4">
-          <label htmlFor="status" className="block font-sriracha text-[#6B7D7D] text-[18px]">Score</label>
+          <label htmlFor="status" className="block font-sriracha text-[#6B7D7D] text-[18px]">Status</label>
           <select id="status" name="status" value={form.status} onChange={handleInputChange} className=" mt-3 text-[16px] font-tauri text-[#6B7D7D] w-full border border-gray-300 rounded-xl px-4 py-2">
             <option value="To read">To read</option>
             <option value="Reading">Reading</option>
