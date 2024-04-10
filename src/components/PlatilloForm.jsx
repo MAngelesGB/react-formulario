@@ -24,14 +24,9 @@ export function PlatilloForm({ form, handleInputChange, handleSubmit, cleanForm,
         {/*Acompañantes*/}
         <div className="mb-4">
           <label className="block font-sriracha text-[#6B7D7D] text-[18px]">Acompañantes</label>
-          <div className="grid gap-2 grid-cols-2 font-tauri text-[16px] content-center justify-center mt-3 px-[80px]">
-            <div className="col-start-1 col-span-1 ">
+          <div className="flex gap-2 font-tauri text-[16px] mt-3">
               <input type="checkbox" name="acompaniantes" value="Salsa roja" checked={form.acompaniantes.includes("Salsa roja")} onChange={handleInputChange} className="relative h-5 w-5 shrink-0 appearance-none rounded-[1px] border checked:bg-[#70D3FD] hover:ring hover:ring-gray-300 focus:outline-none bg-slate-50" /> Salsa roja
-            </div>
-            <div className="col-start-2 col-span-1 ">
               <input type="checkbox" name="acompaniantes" value="Salsa verde" checked={form.acompaniantes.includes("Salsa verde")} onChange={handleInputChange} className="relative h-5 w-5 shrink-0 appearance-none rounded-[1px] border checked:bg-[#70D3FD] hover:ring hover:ring-gray-300 focus:outline-none bg-slate-50" /> Salsa verde
-            </div>
-
           </div>
         </div>
         {/*Picor*/}
@@ -54,7 +49,7 @@ export function PlatilloForm({ form, handleInputChange, handleSubmit, cleanForm,
         </div>
       </div>
       {/* Columna derecha */}
-      <div className="flex flex-col gap-4 items-center justify-end mb-8">
+      <div className="flex flex-col gap-4 items-center justify-center">
         <button type="submit" className="text-[18px] bg-[#8EAF9D] hover:bg-[#6B7D7D] text-white font-sriracha py-2 px-10 w-[160px] h-[45px] ml-2 rounded-[8px] hover:scale-105">Guardar</button>
         <button type="button" onClick={cleanForm} className=" text-[18px] bg-[#8EAF9D] hover:bg-[#6B7D7D] text-white font-sriracha py-2 px-10 w-[160px] h-[45px] rounded-[8px] ml-2 hover:scale-105">Limpiar</button>
         <button type="button" onClick={() => cancelForm()} className="text-[18px] bg-[#8EAF9D] hover:bg-[#6B7D7D] text-white font-sriracha py-2 px-10 w-[160px] h-[45px] rounded-[8px] ml-2 hover:scale-105">Cancelar</button>
