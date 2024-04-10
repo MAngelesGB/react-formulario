@@ -150,8 +150,8 @@ function App() {
     </div>
       {isFormVisible && (
 
-        <div className="my-4">
-        <h2 className="text-[#6B7D7D] text-[30px] font-sriracha ml-[150px] mb-4">Agregar platillo</h2>
+        <div className="my-4 flex flex-col items-center">
+          <h2 className="text-[#6B7D7D] text-[30px] font-sriracha mb-4">Agregar platillo</h2>
           <PlatilloForm
             form={form}
             handleInputChange={handleInputChange}
