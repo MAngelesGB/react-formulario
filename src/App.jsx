@@ -162,17 +162,17 @@ function App() {
         </div>
       )}
 
-      <div className='flex flex-row justify-evenly items-center'>
-        <div className="my-4">
+      <div className='flex flex-row justify-evenly items-center '>
+        <div className="my-4 font-tauri ml-4">
           <input
             type="text"
             placeholder="Buscar platillo"
             value={filter}
             onChange={handleFilterChange}
-            className="border border-gray-300 rounded px-4 py-2"
+            className="border border-gray-300 rounded px-4 py-2 w-[1200px] rounded-[6px] "
           />
-          <select onChange={(e) => sortDishes(e.target.value)}>
-            <option value="">Ordenar por...</option>
+          <select  className=" bg-[#8EAF9D] ml-3 rounded-[6px] hover:bg-[#8EAF9D] text-white h-[40px]"onChange={(e) => sortDishes(e.target.value)}>
+            <option value="">  </option>
             <option value="nombre">Nombre</option>
             <option value="personas">Personas</option>
           </select>
@@ -182,10 +182,9 @@ function App() {
           onClick={() => setIsFormVisible(true)}
           className={`my-4 ${isFormVisible ? 'hidden' : 'block'} py-2 px-4 rounded hover:scale-105 cursor-pointer`}
         >
-          <svg width="36" height="36" viewBox="0 0 24 24"><path fill="#65a30d" d="M11 17h2v-4h4v-2h-4V7h-2v4H7v2h4zm1 5q-2.075 0-3.9-.788t-3.175-2.137q-1.35-1.35-2.137-3.175T2 12q0-2.075.788-3.9t2.137-3.175q1.35-1.35 3.175-2.137T12 2q2.075 0 3.9.788t3.175 2.137q1.35 1.35 2.138 3.175T22 12q0 2.075-.788 3.9t-2.137 3.175q-1.35 1.35-3.175 2.138T12 22" /></svg>
+          <svg width="50" height="50" viewBox="0 0 24 24"><path fill="#8EAF9D" d="M11 17h2v-4h4v-2h-4V7h-2v4H7v2h4zm1 5q-2.075 0-3.9-.788t-3.175-2.137q-1.35-1.35-2.137-3.175T2 12q0-2.075.788-3.9t2.137-3.175q1.35-1.35 3.175-2.137T12 2q2.075 0 3.9.788t3.175 2.137q1.35 1.35 2.138 3.175T22 12q0 2.075-.788 3.9t-2.137 3.175q-1.35 1.35-3.175 2.138T12 22" /></svg>
         </a>
       </div>
-
 
       <div className="my-4">
         {
@@ -201,6 +200,7 @@ function App() {
           handleUpdate={handleUpdate}
         />
       </div>
+      
     </>
 
   );
