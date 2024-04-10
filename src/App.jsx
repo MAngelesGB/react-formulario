@@ -10,7 +10,7 @@ function App() {
     id: 0,
     image: '',
     title: '',
-    author: '',
+    description: '',
     genre: [],
     status: 'To Read',
     score: '1'
@@ -93,7 +93,7 @@ function App() {
       id: 0,
       image: '',
       title: '',
-      author: '',
+      description: '',
       genre: [],
       status: 'To Read',
       score: '1'
@@ -177,15 +177,14 @@ function App() {
             <option value="score">Score</option>
           </select>
         </div>
-      </div>
-
-      <div className="flex flex-col items-end px-[50px]">
-        <a
-          onClick={() => setIsFormVisible(true)}
-          className={` ${isFormVisible ? 'hidden' : 'block'} rounded= full hover:scale-105 cursor-pointer w-[60px]`}
-        >
-          <svg width="60" height="60" viewBox="0 0 24 24"><path fill="#8EAF9D" d="M11 17h2v-4h4v-2h-4V7h-2v4H7v2h4zm1 5q-2.075 0-3.9-.788t-3.175-2.137q-1.35-1.35-2.137-3.175T2 12q0-2.075.788-3.9t2.137-3.175q1.35-1.35 3.175-2.137T12 2q2.075 0 3.9.788t3.175 2.137q1.35 1.35 2.138 3.175T22 12q0 2.075-.788 3.9t-2.137 3.175q-1.35 1.35-3.175 2.138T12 22" /></svg>
-        </a>
+        <div className="flex flex-col items-end px-[50px]">
+          <a
+            onClick={() => setIsFormVisible(true)}
+            className={` ${isFormVisible ? 'hidden' : 'block'} rounded= full hover:scale-105 cursor-pointer w-[60px]`}
+          >
+            <svg width="60" height="60" viewBox="0 0 24 24"><path fill="#8EAF9D" d="M11 17h2v-4h4v-2h-4V7h-2v4H7v2h4zm1 5q-2.075 0-3.9-.788t-3.175-2.137q-1.35-1.35-2.137-3.175T2 12q0-2.075.788-3.9t2.137-3.175q1.35-1.35 3.175-2.137T12 2q2.075 0 3.9.788t3.175 2.137q1.35 1.35 2.138 3.175T22 12q0 2.075-.788 3.9t-2.137 3.175q-1.35 1.35-3.175 2.138T12 22" /></svg>
+          </a>
+        </div>
       </div>
       
       <div className="my-4">
